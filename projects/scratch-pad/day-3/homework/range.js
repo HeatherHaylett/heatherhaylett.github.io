@@ -21,9 +21,38 @@
  *  b. you'll need a loop, which one is best?
  *  c. you'll wanna make use of the push() method of Array.
  */
+ //initialize an empty array to return
+ //use a for loop that begins at start value, stops at end value, and increments by 1
+ //push into the empty array
+ //use a conditional to check if start value is greater than end value
+ //if so use unshift method to add to array
 function range(start, end) {
     // YOUR CODE GOES BELOW HERE //
-    
+    let arr = [];
+    // for(var i = start; i <= end; i++){
+    //     if(start < end){
+    //     arr.push(i);
+    //     }
+    // }
+    //     return arr;
+    // let i = start;
+    // while(start < end){
+    //     i++;
+    //     arr.push(i);
+    // }
+    if(start < end){
+         for (var i = start; i <= end; i++){
+                arr.push(i);
+     } 
+     } else
+         for(var i = start; i >= end; i--){
+                arr.push(i);
+    }
+    return arr;
+ 
+   
+ 
+   
     
     
     
