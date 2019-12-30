@@ -25,7 +25,7 @@ for(var i = 0; i < 5; i++){ // keyword 'for', starting, stopping, and manipulati
 
 /* For-in loops: For-in loops are used to loop over objects. They refer to keys and the
 * object you will be looping over. To create a for-in loop, we start with the keyword
-* 'for' followed by parentheses. In the parentheses we just a variable keyword, then key
+* 'for' followed by parentheses. In the parentheses we use a variable keyword, then key
 * which can be a specific name of a key or not, then keyword 'in' and the name of the object.
 */
 let myFriends = { // object to loop over

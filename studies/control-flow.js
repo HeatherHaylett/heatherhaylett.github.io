@@ -5,6 +5,10 @@
 * We make decisions based on the result of true or false questions.
 * We ask these decision making questions with conditional If statements 
 * and else-if/else chains.
+*
+* 1. When choosing either an else-if chain or switch statement we want to look
+* at the number of series of chains and else-if would require. It is more efficient
+* to use switch statments when there are a long list of conditional statments.
 */
 
 // 1. If //

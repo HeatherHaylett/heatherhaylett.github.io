@@ -115,8 +115,15 @@ var arr = [ 1, 2, 3]; //an array is a complex datatype that holds multiple numbe
 * Complex values that are copied by reference point to a space in memory.
 */
 
+// copy by value
 var myHouse = 'blue'; // declare and initilize myHouse with a value of blue
 var herHouse = myHouse; // assign herHouse the value of myHouse
 herHouse = 'red'; //changing the value of herHouse does not change the value of myHouse
 console.log(myHouse); //will print blue
+
+// copy by reference
+var ages = [16, 17, 18];
+var allAges = ages;
+ages.push(19);
+console.log(ages, allAges) //prints [16, 17, 18], [16, 17, 18]
 

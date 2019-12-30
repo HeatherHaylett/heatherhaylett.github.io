@@ -87,33 +87,63 @@ function arrayToList(arr) {
 ////////////////////////////////////////////////////////////////////////////////
 // listToArray /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function listToArray() {
-
+//create empty array
+// loop through node that points to sublist
+function listToArray(list) {
+  let array = [];
+  for (let node = list; node; node = node.rest) {
+    array.push(node.value);
+  }
+  return array;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // prepend /////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function prepend() {
-
+// take value and list as params
+// return an object with values
+function prepend(value, list) {
+return {value, rest: list};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // nth /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-function nth() {
-
+//takes list and num as params
+//use recurision with num - 1
+function nth(list, num) {
+  if (!list) return undefined;
+  else if (num == 0) return list.value;
+  else return nth(list.rest, num - 1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // deepEqual ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+/*
+*Write a function deepEqual that takes two values and returns true only 
+if they are the same value or are objects with the same properties, 
+where the values of the properties are equal when compared with a recursive call to deepEqual.
+*/
+// null will return object
+// start with true return of deeply equal
+//if the length of keys of both a and b are not the same return false
+// loop through keys
+function deepEqual(a, b) {
+  if (a === b) return true;
+  
+  if (a == null || typeof a != "object" ||
+      b == null || typeof b != "object") return false;
 
-function deepEqual() {
+  let keysA = Object.keys(a), keysB = Object.keys(b);
 
+  if (keysA.length != keysB.length) return false;
+
+  for (let key of keysA) {
+    if (!keysB.includes(key) || !deepEqual(a[key], b[key])) return false;
+  }
+
+  return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
