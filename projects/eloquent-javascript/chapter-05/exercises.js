@@ -22,13 +22,21 @@ return arrays.reduce((flat, current) => flat.concat(current), []);
 * Then it calls the body function, giving it the current value. Finally, it calls the update function
 * to create a new value and starts from the beginning.
 */
-// the loop initializes at the start param
-// params test update and body are all functions
-function loop(start, test, update, body) {
-  for (let value = start; test(value); value = update(value)) {
-    body(value);
-  }
+// use a for loop, if stopping condition is false terminate the loop
+// if stopping condition resolves to true, run the code block
+// change value after code block runs (update)
+
+function loop(val, test, update, body){
+for(let i = val; test(i); i = update(i)){
+  body(i);
+} 
 }
+
+// function loop(start, test, update, body) {
+//   for (let value = start; test(value); value = update(value)) {
+//     body(value);
+//   }
+// }
 
 // /////////////////////////////////////////////////////////////////////////////
 // every ///////////////////////////////////////////////////////////////////////
@@ -39,12 +47,17 @@ function loop(start, test, update, body) {
 */
 // takes two params an array and a function
 // use a for in loop
-function every(array, predicate) {
-  for (let element of array) {
-    if (!predicate(element)) return false;
+function every(arr, testFunc){
+  //iterate over array to test each element
+  for(let i = 0; i < arr.length; i++){
+    // test if element passes test
+    if(!testFunc(arr[i])){
+      return false;
+    }
   }
-  return true;
+      return true;
 }
+
 
 
 
@@ -53,12 +66,14 @@ function every(array, predicate) {
 // /////////////////////////////////////////////////////////////////////////////
 /*
 * Write a function that computes the dominant writing direction in a string of text. 
-Remember that each script object has a direction property that can be "ltr" (left to right), "rtl" (right to left), or "ttb" (top to bottom).
+* Remember that each script object has a direction property that can be "ltr" (left to right), "rtl" (right to left), or "ttb" (top to bottom).
 */ 
 // takes one param a string
-// created a counted function within the function
+// create array of objects with possible scripts
+// use countBy function to find alll of the scripts
+// set variable to countBy function
 function dominantDirection(text) {
-  let counted = countBy(text, char => {
+    let counted = countBy(text, function(char) {
     let script = characterScript(char.codePointAt(0));
     return script ? script.direction : "none";
   }).filter(({name}) => name != "none");

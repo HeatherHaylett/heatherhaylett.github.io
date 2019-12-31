@@ -125,5 +125,5 @@ console.log(myHouse); //will print blue
 var ages = [16, 17, 18];
 var allAges = ages;
 ages.push(19);
-console.log(ages, allAges) //prints [16, 17, 18], [16, 17, 18]
+console.log(ages, allAges) //prints [16, 17, 18, 19], [16, 17, 18, 19]
 
