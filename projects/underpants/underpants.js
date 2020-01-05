@@ -246,8 +246,20 @@ _.each = function(collection, action) {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
-
+//one param array
+//create an empty arr, loop through array and push values into new array
+//use indexOf to check if new array has element then push if not
+_.unique = function(array){
+ let newArr = [];
+ for(var i = 0; i < array.length; i++){
+    if(_.indexOf(newArr, array[i]) === -1){
+        newArr.push(array[i]);
+    }
+    
+}
+    return newArr;
+};
+ 
 /** _.filter
 * Arguments:
 *   1) An array
@@ -263,6 +275,24 @@ _.each = function(collection, action) {
 * Extra Credit:
 *   use _.each in your implementation
 */
+// create an empty array, use each to loop through array calling an anon func
+// with params of elem, index, and array
+//write a conditional that test if calling func returns true, if true
+// push element into empty array
+_.filter = function(array, func){
+let result = [];
+// for(var i = 0; i < array.length; i++){
+//   if(func(array[i], i, array) === true){
+//       result.push(array[i]);
+//   }
+// }
+_.each(array, function(elem, index, array){
+    if(func(elem, index, array) === true){
+        result.push(elem);
+    }
+    });
+        return result;
+};
 
 
 /** _.reject
@@ -277,6 +307,16 @@ _.each = function(collection, action) {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+//set a new variable to filter on the given array and pass arguments to func
+// if those func returns false return the elem
+_.reject = function(array, func){
+var result = array.filter(function(elem, index, array){
+    if(func(elem, index, array) === false){
+        return elem;
+    }
+});
+        return result;
+};
 
 
 /** _.partition
@@ -297,6 +337,28 @@ _.each = function(collection, action) {
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+// three empty arrays one for truthy, falsy, and combining them
+// loop through array and if func applied is false push to false, if true
+// push to true then combine arrays in one array
+_.partition = function(array, func){
+    let trueElem = [];
+    let falseElem = [];
+    let total = [];
+    for(var i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === false){
+            falseElem.push(array[i]);
+        }
+    }
+    for(var i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === true){
+            trueElem.push(array[i]);
+    }
+    
+}
+    total.push(trueElem);
+    total.push(falseElem);
+    return total;
+};
 
 
 /** _.map
@@ -314,7 +376,22 @@ _.each = function(collection, action) {
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+//start with conditional to check for array or object
+//push the result of func on elem, index, and collection
+//OR push the result of func on value, key, collection
+_.map = function(collection, func){
+    let result = [];
+    if(Array.isArray(collection)){
+        for(var i = 0; i < collection.length; i++){
+            result.push(func(collection[i], i, collection));
+        }
+    } else {
+        for(var key in collection){
+            result.push(func(collection[key], key, collection));
+        }
+    }  
+    return result;
+};
 
 /** _.pluck
 * Arguments:
@@ -326,6 +403,19 @@ _.each = function(collection, action) {
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
+//params array, and property
+/*loop through array to access each object, then access value of property
+* with bracket notation
+*/
+//use map which checks if array or object then applies func to each elem
+//map takes in a collection and a function
+//return the value of property with bracket notation
+_.pluck = function(array, prop){
+    var result = array.map(function(elem, index, collection){
+            return elem[prop];
+    })
+    return result;
+};
 
 
 /** _.every
@@ -348,6 +438,39 @@ _.each = function(collection, action) {
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+//two params, collection, func 
+//check for array or object and call the function on each element
+//use conditional statment 
+//first step check for function provided
+_.every = function(collection, func){
+        if(!func){
+                 for(var i = 0; i < collection.length; i++){
+                     if(collection[i] === false){
+                         return false;
+                     }
+                 }
+                        return true;
+             }     
+        
+        
+        if(Array.isArray(collection)) {
+            for(var i = 0; i < collection.length; i++) {
+                if(func(collection[i], i, collection) === false){
+                    return false;
+                }
+                   
+        }
+                 return true;
+    } else {
+            for (var key in collection) {
+                if(func(collection[key], key, collection) === false){
+                    return false;   
+                }
+                    
+        }
+                return true;
+    }      
+};
 
 
 /** _.some
@@ -370,6 +493,36 @@ _.each = function(collection, action) {
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+//check if function exists return true otherwise false
+//check for array or object then loop through and call function to check if 
+//even one element is true if so return true, otherwise false
+_.some = function(collection, func){
+        if(!func){
+                 for(var i = 0; i < collection.length; i++){
+                     if(collection[i] === true){
+                         return true;
+                     }
+                 }
+                        return false;
+             }
+        if(Array.isArray(collection)) {
+            for(var i = 0; i < collection.length; i++) {
+                if(func(collection[i], i, collection) === true){
+                    return true;
+                }
+                   
+        }
+                 return false;
+    } else {
+            for (var key in collection) {
+                if(func(collection[key], key, collection) === true){
+                    return true;   
+                }
+                    
+        }
+                return false;
+    }             
+};
 
 
 /** _.reduce
@@ -390,7 +543,23 @@ _.each = function(collection, action) {
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
-
+// we are gonna loop through an array and call the function onever element
+_.reduce = function(array, func, seed){
+    //if seed is given and not flasy
+    if(seed !== undefined){
+        for(var i = 0; i < array.length; i++){
+            seed = func(seed, array[i], i, array)
+        } 
+    //if seed is not given or is falsy    
+    } else {
+        seed = array[0]; 
+        //start loop at index 1 since seed starts at index 0
+        for(var i = 1; i < array.length; i++){
+            seed = func(seed, array[i], i, array)
+        }
+    }
+        return seed;
+};
 
 /** _.extend
 * Arguments:
@@ -406,6 +575,16 @@ _.each = function(collection, action) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+//use object assign to copy over properties
+//spread operator (...) places remaining arguments in an array
+_.extend = function(object1, ...objArgs){
+/*Object.assign() method copies all enumerable own properties from one or more 
+* source objects(...objArgs) to a target object(obj1) and returns target object
+*/
+let updatedObj1 = Object.assign(object1, ...objArgs);
+  //return the updated object.
+   return updatedObj1;
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
